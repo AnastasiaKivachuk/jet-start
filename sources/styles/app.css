@@ -56,3 +56,13 @@
 	font-size:20px;
 	vertical-align:middle;
 }
+
+
+.contactTitle{
+    background: blue;
+    color: white;
+    font-size: 25px;
+}
+.removeUser{
+    float: right;
+  }

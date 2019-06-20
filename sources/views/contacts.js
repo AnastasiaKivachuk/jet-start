@@ -27,8 +27,8 @@ export default class ContactView extends JetView {
 							select: true,
 							template: "#Name# - #Email# <span class='webix_icon wxi-close removeUser'></span>",
 							on: {
-								onAfterSelect: function (id) {
-									$$("myform").setValues($$("contactList")
+								onAfterSelect:  (id) => {
+									this.$$("myform").setValues($$("contactList")
 										.getItem(id));
 								}
 							},
@@ -39,7 +39,7 @@ export default class ContactView extends JetView {
 										text: "Do you still want to continue?"
 									}).then(
 										function () {
-											$$("contactList").remove(contactsValue.getSelectedId());
+											this.$$("contactList").remove(contactsValue.getSelectedId());
 										})
 								}
 							}

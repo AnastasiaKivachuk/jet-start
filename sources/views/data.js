@@ -26,68 +26,154 @@ export default class DataView extends JetView {
 							css: "menu",
 							rows: [
 								{
-								view: "list",
-								localId: "mylist",
-								width: 200,
-								scroll: false,
-								select: true,
-								on: {
-									onAfterSelect: function (id) {
-										$$(id).show();
-									}
-								},
-								data: ["Countries", "Statuses"]
-							}
-						]
+									view: "list",
+									localId: "mylist",
+									width: 200,
+									scroll: false,
+									select: true,
+									on: {
+										onAfterSelect: function (id) {
+											$$(id).show();
+										}
+									},
+									data: ["Countries", "Statuses"]
+								}
+							]
 						},
 						{
 							cells: [
 								{
 									id: "Countries",
-									cols: [
+									rows: [
 										{
-										localId: "tableCountries",
-										view: "datatable",
-										select: true,
-										autoWidth: true,
-										autoConfig: true,
-										scrollX: false,
-										columns: [
-											{
-											id: "Name",
-											header: "Name",
-											sort: "string",
-											autoWidth: true
-											}
+											cols: [
+												{
+													localId: "tableCountries",
+													view: "datatable",
+													edit: true,
+													editable: true,
+													editaction: "dblclick",
+													editor: "text",
+													select: true,
+													autoWidth: true,
+													autoConfig: true,
+													scrollX: false,
+													columns: [
+														{
+															id: "Name",
+															editor: "text",
+															header: "Name",
+															sort: "string",
+															autoWidth: true
+														}
+													],
+													rules: {
+														Name: webix.rules.isNotEmpty,
+													}
+
+												}
+											]
+										},
+										{
+											cols: [
+												{
+													view: "button",
+													value: "Add new",
+													css: "webix_primary",
+													click: function () {
+														if ($$("tableCountries").validate()) {
+															$$("tableCountries").add({ "name": "New name" });
+														}
+													}
+												},
+												{
+													view: "button",
+													value: "Clear",
+													click: function () {
+														webix.confirm({
+															text: "Do you still want to continue?"
+														}).then(
+															function () {
+																$$("tableCountries").remove($$("tableCountries").getSelectedId());
+															},
+														);
+													}
+												}
 											]
 										}
 									]
+
 								},
 								{
 									id: "Statuses",
-									cols: [
+									rows: [
 										{
-											localId: "tableStatuses",
-											view: "datatable",
-											autoWidth: true,
-											select: true,
-											autoConfig: true,
-											scrollX: false,
-											columns: [
+											cols: [
 												{
-													id: "Name",
-													header: "Name",
-													sort: "string"
+													//localId: "tableStatuses",
+													view: "datatable",
+													autoWidth: true,
+													edit: true,
+													editable: true,
+													editaction: "dblclick",
+													editor: "text",
+													select: true,
+													autoConfig: true,
+													scrollX: false,
+													// columns: [
+													// 	{
+													// 		id: "Name",
+													// 		editor: "text",
+													// 		header: "Name",
+													// 		sort: "string"
+													// 	},
+													// 	{
+													// 		id: "Icon",
+													// 		editor: "text",
+													// 		header: "Icon",
+													// 		sort: "string"
+													// 	}
+													// ],
+													rules: {
+														Name: webix.rules.isNotEmpty,
+														Icon: webix.rules.isNotEmpty
+													}
+
+												}
+											]
+										},
+										{
+											cols: [
+												{
+													view: "button",
+													value: "Add new",
+													css: "webix_primary",
+													click: function () {
+														if ($$("tableStatuses").validate()) {
+															$$("tableStatuses").add({ "Name": "New name" ,"Icon": "New icon" 
+														});
+														}
+													}
 												},
 												{
-													id: "Icon",
-													header: "Icon",
-													sort: "string"
+													view: "button",
+													value: "Clear",
+													click: function () {
+														webix.confirm({
+															text: "Do you still want to continue?"
+														}).then(
+															function () {
+																$$("tableStatuses").remove($$("tableStatuses").getSelectedId());
+															},
+														);
+													}
 												}
-											]		
-										}		
+											]
+										}
 									]
-								}
+
+								},
+								
 							]
 						}
 					]

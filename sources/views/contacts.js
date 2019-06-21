@@ -32,38 +32,9 @@ export default class ContactView extends JetView {
 							width: 400,
 							css: "webix_shadow_medium",
 							select: true,
-							template: "#Name# - #Email# <span class='webix_icon wxi-close removeUser'></span>"
-
-							// on: {
-							// 	onAfterSelect: (id) => {
-							// 		this.$$("myform").setValues(webix.$$("contactList")
-							// 			.getItem(id));
-							// 	}
-							// }
-
-							// onClick: {
-							// 	removeBtn: (e, id) => {
-							// 		this.$$("contactList").remove(id);
-							// 	}
-							// }
-							// click: () => {
-
-							// 	let idS = this.$$("contactList").getSelectedId();
-							// 	this.$$("contactList").remove(idS);
-							// }
+							template: "#Name# - #Email# <span class='webix_icon wxi-close removeUser'></span>",
 
 
-							// onClick: {
-							// 	removeUser: function (e, id) {
-							// 		webix.confirm({
-							// 			text: "Do you still want to continue?"
-							// 		}).then(
-							// 			function () {
-							// 				this.$$("contactList").remove(this.$$("contactList").getSelectedId());
-							// 				this.$$("contactList").remove(webix.$$(id));
-							// 			})
-							// 	}
-							// }
 						},
 						{
 							view: "button",
@@ -82,8 +53,11 @@ export default class ContactView extends JetView {
 	}
 
 
-	init() {
+	init(view) {
+		view.queryView("list").sync(contacts);
 		this.$$("contactList").parse(contacts);
 		this.$$("contactList").select(this.$$("contactList").getFirstId());
 	}
+
+
 }

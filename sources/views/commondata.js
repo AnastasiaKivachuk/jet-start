@@ -38,7 +38,7 @@ export default class CommonData extends JetView {
 		};
 	}
 
-	init(view) {
-		view.queryView("datatable").parse(this._tdata);
+	init() {
+		this.$$("datatableCommon").parse(this._tdata);
 	}
 }

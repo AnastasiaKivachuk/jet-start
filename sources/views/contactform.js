@@ -3,7 +3,7 @@ import {
 } from "webix-jet";
 import {
 	contacts
-} from "./contacts";
+} from "../models/contacts";
 import {
 	countries
 } from "../models/countries";
@@ -18,7 +18,6 @@ export default class ContactFormView extends JetView {
 		return {
 			view: "form",
 			localId: "myform",
-			data: contacts,
 			elements: [
 				{
 					view: "text",
@@ -59,14 +58,14 @@ export default class ContactFormView extends JetView {
 					view: "button",
 					value: "Save",
 					css: "webix_primary",
-					// click: function () {
-					// 	var form = this.$$('myform');
-					// 	if (form.isDirty()) {
-					// 		if (!form.validate())
-					// 			return false;
-					// 		form.save();
-					// 	}
-					// }
+					click: function () {
+						var form = this.$$('myform');
+						if (form.isDirty()) {
+							if (!form.validate())
+								return false;
+						
+						}
+					}
 				},
 				{}
 
@@ -79,5 +78,11 @@ export default class ContactFormView extends JetView {
 
 		};
 	}
-
+	urlChange(){
+		const id = this.getParam("id");
+		
+		if (id && contacts.exists(id)){
+			this.$$("myform").setValues(contacts.getItem(id)); 
+		}
+    }
 }

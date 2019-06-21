@@ -49,6 +49,12 @@ export default class DataView extends JetView {
 									$subview: new CommonData(this.app, "",
 										statuses)
 								}
+								// {
+								// 	localId: "Statuses",
+								// 	rows:[
+								// 		{ $subview: new CommonData(this.app, "",	statuses) }
+								// 	]
+								// }
 							]
 
 						}
@@ -62,6 +68,7 @@ export default class DataView extends JetView {
 		this.$$("mylist").select("Countries");
 		this.$$("mylist").attachEvent("onAfterSelect", (id) => {
 			webix.$$(id).show();
+			//this.$$("id")
 		})
 		// if (url.length > 1)
 		// view.queryView("list").setValue(url[1].page);

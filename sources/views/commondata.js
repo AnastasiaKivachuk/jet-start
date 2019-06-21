@@ -10,32 +10,30 @@ export default class CommonData extends JetView {
 
 	config() {
 		return {
-			rows: [
-				{
-					view: "datatable",
-					localId: "datatableCommon",
-					editable: true,
-					autoConfig: true,
-					editaction: "dblclick",
-					scroll: "auto",
-					select: true
-				},
-				{
-					view: "button",
-					value: "Add new",
-					click: () => {
-						this.$$("datatableCommon").add({});
-					}
-				},
-				{
-					view: "button",
-					value: "Delete",
-					click: () => {
-						this.$$("datatableCommon").attachEvent("onAfterSelect", (id) => {
-							this.$$("datatableCommon").remove(webix.$$(id));
-						})
-					}
+			rows: [{
+				view: "datatable",
+				localId: "datatableCommon",
+				editable: true,
+				autoConfig: true,
+				editaction: "dblclick",
+				scroll: "auto",
+				select: true
+			},
+			{
+				view: "button",
+				value: "Add new",
+				click: () => {
+					this.$$("datatableCommon").add({});
 				}
+			},
+			{
+				view: "button",
+				value: "Delete",
+				click: () => {
+					let idS = this.$$("datatableCommon").getSelectedId();
+					this.$$("datatableCommon").remove(idS);
+				}
+			}
 			]
 		};
 	}
@@ -44,4 +42,3 @@ export default class CommonData extends JetView {
 		view.queryView("datatable").parse(this._tdata);
 	}
 }
-

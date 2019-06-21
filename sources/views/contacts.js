@@ -79,13 +79,14 @@ export default class ContactView extends JetView {
 				// 			view: "richselect",
 				// 			name: "Status",
 				// 			label: "Status",
-				// 			options: statuses.Name
+				// 			template: "#Name#"
 				// 		},
 				// 		{
 				// 			view: "richselect",
 				// 			name: "Country",
 				// 			label: "Country",
-				// 			options: countries
+				// 			options: countries,
+				// 			template: "#Name#"
 				// 		},
 				// 		{view: "button", type: "form", value: "Save"},
 

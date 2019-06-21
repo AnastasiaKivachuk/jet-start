@@ -4,6 +4,13 @@ import {
 import {
 	contacts
 } from "../models/contacts";
+import {
+	countries
+} from "../models/countries";
+import {
+	statuses
+} from "../models/statuses";
+
 
 export default class ContactView extends JetView {
 	config() {
@@ -26,53 +33,71 @@ export default class ContactView extends JetView {
 							css: "webix_shadow_medium",
 							select: true,
 							template: "#Name# - #Email# <span class='webix_icon wxi-close removeUser'></span>",
-							on: {
-								onAfterSelect:  (id) => {
-									this.$$("myform").setValues($$("contactList")
-										.getItem(id));
-								}
-							},
+							// on: {
+							// 	onAfterSelect: (id) => {
+							// 		this.$$("myform").setValues(webix.$$("contactList")
+							// 			.getItem(id));
+							// 	}
+							// }
+							click: () => {
+								this.$$("contactList").attachEvent("onAfterSelect", (id) => {
+									this.$$("contactList").remove(webix.$$(id));
+								})
 
-							onClick: {
-								removeUser: function (e, id) {
-									webix.confirm({
-										text: "Do you still want to continue?"
-									}).then(
-										function () {
-											this.$$("contactList").remove(contactsValue.getSelectedId());
-										})
-								}
+
+							// onClick: {
+							// 	removeUser: function (e, id) {
+							// 		webix.confirm({
+							// 			text: "Do you still want to continue?"
+							// 		}).then(
+							// 			function () {
+							// 				this.$$("contactList").remove(this.$$("contactList").getSelectedId());
+							// 				this.$$("contactList").remove(webix.$$(id));
+							// 			})
+							// 	}
+							// }
 							}
-
 						}
 					]
 				},
-				{
-					view: "form",
-					localId: "myform",
-					elements: [
-						{
-							view: "text",
-							label: "User Name",
-							name: "Name"
-						},
-						{
-							view: "text",
-							label: "Email",
-							name: "Email"
-						},
+				{ $subview: true }
+				// {
+				// 	view: "form",
+				// 	localId: "myform",
+				// 	elements: [
+				// 		{
+				// 			view: "text",
+				// 			label: "User Name",
+				// 			name: "Name"
+				// 		},
+				// 		{
+				// 			view: "text",
+				// 			label: "Email",
+				// 			name: "Email"
+				// 		},
+				// 		{
+				// 			view: "richselect",
+				// 			name: "Status",
+				// 			label: "Status",
+				// 			options: statuses.Name
+				// 		},
+				// 		{
+				// 			view: "richselect",
+				// 			name: "Country",
+				// 			label: "Country",
+				// 			options: countries
+				// 		},
+				// 		{view: "button", type: "form", value: "Save"},
 
-						{}
-					]
-				}
+				// 		{}
+				// 	]
+				// }
 			]
 		};
 	}
 
 
 	init() {
-		const contactsValue = this.$$("contactList");
-		contactsValue.parse(contacts);
+		this.$$("contactList").parse(contacts);
 	}
 }
-

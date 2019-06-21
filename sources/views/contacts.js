@@ -32,17 +32,25 @@ export default class ContactView extends JetView {
 							width: 400,
 							css: "webix_shadow_medium",
 							select: true,
-							template: "#Name# - #Email# <span class='webix_icon wxi-close removeUser'></span>",
+							template: "#Name# - #Email# <span class='webix_icon wxi-close removeUser'></span>"
+
 							// on: {
 							// 	onAfterSelect: (id) => {
 							// 		this.$$("myform").setValues(webix.$$("contactList")
 							// 			.getItem(id));
 							// 	}
 							// }
-							click: () => {
-								this.$$("contactList").attachEvent("onAfterSelect", (id) => {
-									this.$$("contactList").remove(webix.$$(id));
-								})
+
+							// onClick: {
+							// 	removeBtn: (e, id) => {
+							// 		this.$$("contactList").remove(id);
+							// 	}
+							// }
+							// click: () => {
+
+							// 	let idS = this.$$("contactList").getSelectedId();
+							// 	this.$$("contactList").remove(idS);
+							// }
 
 
 							// onClick: {
@@ -56,43 +64,19 @@ export default class ContactView extends JetView {
 							// 			})
 							// 	}
 							// }
+						},
+						{
+							view: "button",
+							value: "Add new",
+							click: () => {
+								this.$$("contactList").add({"Name": "New name", "Email": "New email"});
 							}
 						}
 					]
 				},
-				{ $subview: true }
-				// {
-				// 	view: "form",
-				// 	localId: "myform",
-				// 	elements: [
-				// 		{
-				// 			view: "text",
-				// 			label: "User Name",
-				// 			name: "Name"
-				// 		},
-				// 		{
-				// 			view: "text",
-				// 			label: "Email",
-				// 			name: "Email"
-				// 		},
-				// 		{
-				// 			view: "richselect",
-				// 			name: "Status",
-				// 			label: "Status",
-				// 			template: "#Name#"
-				// 		},
-				// 		{
-				// 			view: "richselect",
-				// 			name: "Country",
-				// 			label: "Country",
-				// 			options: countries,
-				// 			template: "#Name#"
-				// 		},
-				// 		{view: "button", type: "form", value: "Save"},
-
-				// 		{}
-				// 	]
-				// }
+				{
+					$subview: "/contactform"
+				}
 			]
 		};
 	}
@@ -100,5 +84,6 @@ export default class ContactView extends JetView {
 
 	init() {
 		this.$$("contactList").parse(contacts);
+		this.$$("contactList").select(this.$$("contactList").getFirstId());
 	}
 }

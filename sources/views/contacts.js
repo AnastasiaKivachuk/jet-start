@@ -4,9 +4,7 @@ import {
 import {
 	contacts
 } from "../models/contacts";
-import 
-	ContactFormView
-from "./contactform";
+import ContactFormView from "./contactform";
 
 export default class ContactView extends JetView {
 	config() {
@@ -29,23 +27,31 @@ export default class ContactView extends JetView {
 							css: "webix_shadow_medium",
 							select: true,
 							template: "#Name# - #Email# <span class='webix_icon wxi-close removeUser'></span>",
-							on:{
-								onAfterSelect:(id)=>{
-								    this.setParam("id", id, true);
+							on: {
+								onAfterSelect: (id) => {
+									this.setParam("id", id, true);
 								}
-							} ,
+							},
 							onClick: {
-								removeUser: function (e, id) {
-										webix.confirm({
-											text: "Do you still want to continue?"
-										}).then(
-											function () {
+								removeUser: (e, id) => {
+									webix.confirm({
+										text: "Do you still want to continue?"
+									}).then(
+										() => {
+
+											const list = this.$$("contactList");
+											id = contacts.getFirstId();
+											if (id) {
+												// list.select(id);
+												this.show("./contacts");
 												contacts.remove(id);
-												return false;
-											})
-									}
-								},
-					
+											}
+
+											return false;
+										}
+									);
+								}
+							}
 						},
 						{
 							view: "button",
@@ -57,7 +63,6 @@ export default class ContactView extends JetView {
 					]
 				},
 				ContactFormView
-				
 			]
 		};
 	}
@@ -67,15 +72,13 @@ export default class ContactView extends JetView {
 		view.queryView("list").sync(contacts);
 	}
 
-	urlChange(){
+	urlChange() {
 		const list = this.$$("contactList");
 		let id = this.getParam("id");
 
-		if(!id || !contacts.exists(id)){
+		if (!id || !contacts.exists(id)) {
 			id = contacts.getFirstId();
 		}
-		
-		if(id)
-			list.select(id);
+		if (id) { list.select(id); }
 	}
 }

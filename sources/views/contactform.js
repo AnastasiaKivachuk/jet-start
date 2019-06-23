@@ -13,7 +13,6 @@ import {
 
 
 export default class ContactFormView extends JetView {
-
 	config() {
 		return {
 			view: "form",
@@ -58,12 +57,12 @@ export default class ContactFormView extends JetView {
 					view: "button",
 					value: "Save",
 					css: "webix_primary",
-					click: function () {
-						var form = this.$$('myform');
+					click: () => {
+						let form = this.$$("myform");
 						if (form.isDirty()) {
-							if (!form.validate())
-								return false;
-						
+							if (!form.validate()) { return false; }
+							let changed = this.$$("myform").getDirtyValues();
+							contacts.updateItem(this.getParam("id"), changed);
 						}
 					}
 				},
@@ -78,11 +77,14 @@ export default class ContactFormView extends JetView {
 
 		};
 	}
-	urlChange(){
+
+	urlChange() {
 		const id = this.getParam("id");
-		
-		if (id && contacts.exists(id)){
-			this.$$("myform").setValues(contacts.getItem(id)); 
+		if (id && contacts.exists(id)) {
+			this.$$("myform").setValues(contacts.getItem(id));
 		}
-    }
+		else {
+			this.$$("myform").clear();
+		}
+	}
 }

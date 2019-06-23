@@ -39,22 +39,34 @@ export default class DataView extends JetView {
 						{
 
 							cells: [
+								// {
+								// 	id: "Countries",
+								// 	$subview: new CommonData(this.app, "",
+								// 		countries)
+								// },
+								// {
+								// 	id: "Statuses",
+								// 	$subview: new CommonData(this.app, "",
+								// 		statuses)
+								// }
 								{
-									id: "Countries",
-									$subview: new CommonData(this.app, "",
-										countries)
+									localId: "Countries",
+									rows: [
+										{
+											$subview: new CommonData(this.app,
+												"", countries)
+										}
+									]
 								},
 								{
-									id: "Statuses",
-									$subview: new CommonData(this.app, "",
-										statuses)
+									localId: "Statuses",
+									rows: [
+										{
+											$subview: new CommonData(this.app,
+												"", statuses)
+										}
+									]
 								}
-								// {
-								// 	localId: "Statuses",
-								// 	rows:[
-								// 		{ $subview: new CommonData(this.app, "",	statuses) }
-								// 	]
-								// }
 							]
 
 						}
@@ -64,13 +76,10 @@ export default class DataView extends JetView {
 		};
 	}
 
-	init(view, url) {
+	init() {
 		this.$$("mylist").select("Countries");
 		this.$$("mylist").attachEvent("onAfterSelect", (id) => {
-			webix.$$(id).show();
-			//this.$$("id")
+			this.$$(id).show();
 		})
-		// if (url.length > 1)
-		// view.queryView("list").setValue(url[1].page);
 	}
 }

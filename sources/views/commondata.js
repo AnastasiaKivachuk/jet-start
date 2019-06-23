@@ -9,6 +9,8 @@ export default class CommonData extends JetView {
 	}
 
 	config() {
+		// const _ = this.app.getService("locale")._;
+		// const lang = this.app.getService("locale").getLang();
 		return {
 			rows: [{
 				view: "datatable",
@@ -23,15 +25,22 @@ export default class CommonData extends JetView {
 				view: "button",
 				value: "Add new",
 				click: () => {
-					this.$$("datatableCommon").add({});
+					this._tdata.add({"Name":"NEW"});
+					// this.$$("datatableCommon").add({});
 				}
 			},
 			{
 				view: "button",
 				value: "Delete",
 				click: () => {
+					// let idS = this.$$("datatableCommon").getSelectedId();
+					// if (idS) {
+					// 	this.$$("datatableCommon").remove(idS);
+					// }
 					let idS = this.$$("datatableCommon").getSelectedId();
-					this.$$("datatableCommon").remove(idS);
+					if (idS) {
+						this._tdata.remove(idS);
+					}
 				}
 			}
 			]

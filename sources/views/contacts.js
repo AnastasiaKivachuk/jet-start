@@ -6,8 +6,11 @@ import {
 } from "../models/contacts";
 import ContactFormView from "./contactform";
 
+
 export default class ContactView extends JetView {
 	config() {
+		// const _ = this.app.getService("locale")._;
+		// const lang = this.app.getService("locale").getLang();
 		return {
 			cols: [
 				{
@@ -38,8 +41,7 @@ export default class ContactView extends JetView {
 										text: "Do you still want to continue?"
 									}).then(
 										() => {
-
-											const list = this.$$("contactList");
+											// const list = this.$$("contactList");
 											id = contacts.getFirstId();
 											if (id) {
 												// list.select(id);
@@ -69,16 +71,21 @@ export default class ContactView extends JetView {
 
 
 	init(view) {
-		view.queryView("list").sync(contacts);
+		contacts.waitData.then(() => {
+			view.queryView("list").sync(contacts);
+		});
 	}
 
-	urlChange() {
-		const list = this.$$("contactList");
-		let id = this.getParam("id");
 
-		if (!id || !contacts.exists(id)) {
-			id = contacts.getFirstId();
-		}
-		if (id) { list.select(id); }
+	urlChange() {
+		contacts.waitData.then(() => {
+			const list = this.$$("contactList");
+			let id = this.getParam("id");
+
+			if (!id || !contacts.exists(id)) {
+				id = contacts.getFirstId();
+			}
+			if (id) { list.select(id); }
+		});
 	}
 }

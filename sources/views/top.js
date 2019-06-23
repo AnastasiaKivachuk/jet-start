@@ -2,6 +2,8 @@ import {JetView, plugins} from "webix-jet";
 
 export default class TopView extends JetView {
 	config() {
+		// const _ = this.app.getService("locale")._;
+		// const lang = this.app.getService("locale").getLang();
 		let header = {
 			type: "header", template: this.app.config.name, css: "webix_header app_header"
 		};

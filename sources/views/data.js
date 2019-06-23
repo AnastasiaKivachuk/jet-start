@@ -11,6 +11,8 @@ import CommonData from "./commondata";
 
 export default class DataView extends JetView {
 	config() {
+		// const _ = this.app.getService("locale")._;
+		// const lang = this.app.getService("locale").getLang();
 		return {
 			rows: [
 				{
@@ -80,6 +82,6 @@ export default class DataView extends JetView {
 		this.$$("mylist").select("Countries");
 		this.$$("mylist").attachEvent("onAfterSelect", (id) => {
 			this.$$(id).show();
-		})
+		});
 	}
 }

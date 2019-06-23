@@ -14,6 +14,8 @@ import {
 
 export default class ContactFormView extends JetView {
 	config() {
+		// const _ = this.app.getService("locale")._;
+		// const lang = this.app.getService("locale").getLang();
 		return {
 			view: "form",
 			localId: "myform",
@@ -79,12 +81,14 @@ export default class ContactFormView extends JetView {
 	}
 
 	urlChange() {
-		const id = this.getParam("id");
-		if (id && contacts.exists(id)) {
-			this.$$("myform").setValues(contacts.getItem(id));
-		}
-		else {
-			this.$$("myform").clear();
-		}
+		contacts.waitData.then(() => {
+			const id = this.getParam("id");
+			if (id && contacts.exists(id)) {
+				this.$$("myform").setValues(contacts.getItem(id));
+			}
+			else {
+				this.$$("myform").clear();
+			}
+		});
 	}
 }

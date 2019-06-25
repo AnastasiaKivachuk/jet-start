@@ -11,15 +11,15 @@ import CommonData from "./commondata";
 
 export default class DataView extends JetView {
 	config() {
-		// const _ = this.app.getService("locale")._;
-		// const lang = this.app.getService("locale").getLang();
+		const _ = this.app.getService("locale")._;
+		const lang = this.app.getService("locale").getLang();
 		return {
 			rows: [
 				{
 					view: "template",
 					css: "contactTitle",
 					autoheight: true,
-					template: "Data",
+					template: _("Data"),
 					align: "center"
 				},
 				{

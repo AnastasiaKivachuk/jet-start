@@ -14,26 +14,26 @@ import {
 
 export default class ContactFormView extends JetView {
 	config() {
-		// const _ = this.app.getService("locale")._;
-		// const lang = this.app.getService("locale").getLang();
+		const _ = this.app.getService("locale")._;
+		const lang = this.app.getService("locale").getLang();
 		return {
 			view: "form",
 			localId: "myform",
 			elements: [
 				{
 					view: "text",
-					label: "User Name",
+					label: _("User Name"),
 					name: "Name"
 				},
 				{
 					view: "text",
-					label: "Emails",
+					label: _("Email"),
 					name: "Email"
 				},
 				{
 					view: "richselect",
 					name: "Status",
-					label: "Status",
+					label: _("Status"),
 					value: 1,
 					options: {
 						body: {
@@ -45,7 +45,7 @@ export default class ContactFormView extends JetView {
 				{
 					view: "richselect",
 					name: "Country",
-					label: "Country",
+					label: _("Country"),
 					value: 1,
 					options: {
 						body: {
@@ -57,7 +57,7 @@ export default class ContactFormView extends JetView {
 				},
 				{
 					view: "button",
-					value: "Save",
+					value: _("Save"),
 					css: "webix_primary",
 					click: () => {
 						let form = this.$$("myform");

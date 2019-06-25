@@ -9,8 +9,8 @@ import ContactFormView from "./contactform";
 
 export default class ContactView extends JetView {
 	config() {
-		// const _ = this.app.getService("locale")._;
-		// const lang = this.app.getService("locale").getLang();
+		const _ = this.app.getService("locale")._;
+		const lang = this.app.getService("locale").getLang();
 		return {
 			cols: [
 				{
@@ -19,7 +19,7 @@ export default class ContactView extends JetView {
 							view: "template",
 							css: "contactTitle",
 							autoheight: true,
-							template: "contact",
+							template: _("contact"),
 							align: "center"
 						},
 						{
@@ -57,7 +57,7 @@ export default class ContactView extends JetView {
 						},
 						{
 							view: "button",
-							value: "Add new",
+							value: _("Add"),
 							click: () => {
 								contacts.add({"Name": "New name", "Email": "New email"});
 							}
